@@ -1,13 +1,7 @@
 /* 
    Spider-Man — Um Novo Dia
    Layout do Figma: 1920 x 1080 por seção.
-
-   Toda medida é escrita em unidades de design (px do Figma) multiplicadas
-   por --u, que vale 1px quando a página tem 1920px de largura.
-
-   As seções ocupam 100% da altura da tela; por isso as posições verticais
-   são ancoradas (topo / base / centro) em vez de usarem um "top" fixo.
-    */
+*/
 
 @font-face {
   font-family: "Good Times";
@@ -23,31 +17,25 @@
 *::after { box-sizing: border-box; }
 
 html, body { margin: 0; padding: 0; }
-
 img { display: block; max-width: 100%; }
-
 a { color: inherit; text-decoration: none; }
-
 p, h1, h2, h3, figure { margin: 0; }
-
 ul { margin: 0; padding: 0; list-style: none; }
 
 html { background-color: #000; }
 
 body {
-  container-type: inline-size;      /* referência para as unidades cqw */
+  container-type: inline-size;
   overflow-x: hidden;
   background-color: #000;
   font-family: "Poppins", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 1 unidade de design, compartilhada pelas seções */
 .hero,
 .cast {
   --u: calc(100cqw / 1920);
 }
-
 
 /* SEÇÃO 1 — HERO */
 .hero {
@@ -59,7 +47,6 @@ body {
   background-color: #770000;
 }
 
-/* Teia: imagem em tons de cinza em overlay 30% sobre o vermelho */
 .hero__webbing {
   position: absolute;
   inset: 0;
@@ -69,7 +56,6 @@ body {
   pointer-events: none;
 }
 
-/* SVG que só carrega o <clipPath>: não ocupa espaço na página */
 .clip-defs {
   position: absolute;
   width: 0;
@@ -77,29 +63,30 @@ body {
   overflow: hidden;
 }
 
-/* STAGE — div recortada pelo shape de bordas arredondadas internas.
-   Ocupa 100% da largura e 100% da altura disponíveis (menos a margem de 32u).
-   Como o clipPath está em objectBoundingBox, o recorte acompanha os dois eixos.  */
 .stage {
   position: absolute;
   inset: calc(32 * var(--u));
-
   background-color: #fff;
-  background-image: url("assets/bg-container.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 66.9%;
-
+  /* Fundo de imagem removido para usar o Canvas */
   clip-path: url(#stage-clip);
 }
 
-/*  Título + sinopse (centralizados na vertical)  */
+/* Estilo do Canvas que reproduz os frames */
+#stage-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .movie {
   position: absolute;
   left: calc(45 * var(--u));
   width: calc(1766 * var(--u));
   top: 50%;
-  margin-top: calc(-56 * var(--u));   /* 540 - 484, com o bloco de 153u */
+  margin-top: calc(-56 * var(--u));
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -110,15 +97,24 @@ body {
   height: calc(153 * var(--u));
 }
 
-.movie__desc {
+/* Container de textos sobrepostos */
+.movie__desc-container {
+  position: relative;
   width: calc(449 * var(--u));
+  height: calc(250 * var(--u)); /* Maior para caber textos mais longos */
   margin-top: calc(16.5 * var(--u));
+}
+
+.movie__desc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   font-size: calc(20 * var(--u));
   line-height: calc(30 * var(--u));
   color: rgba(0, 0, 0, .9);
 }
 
-/* Selo "role a página" (ancorado na base à direita)  */
 .scroll-badge {
   position: absolute;
   right: calc(45 * var(--u));
@@ -127,10 +123,7 @@ body {
   height: calc(176 * var(--u));
 }
 
-.scroll-badge__ring {
-  width: 100%;
-  height: 100%;
-}
+.scroll-badge__ring { width: 100%; height: 100%; }
 
 .scroll-badge__hand {
   position: absolute;
@@ -140,9 +133,6 @@ body {
   height: calc(83 * var(--u));
 }
 
-/* Elementos nos recortes (fora do shape, sobre o vermelho) */
-
-/*  Logo  */
 .brand {
   position: absolute;
   left: calc(32 * var(--u));
@@ -167,7 +157,6 @@ body {
   height: calc(30 * var(--u));
 }
 
-/*  Navegação  */
 .nav {
   position: absolute;
   right: calc(32 * var(--u));
@@ -205,7 +194,6 @@ body {
 
 .nav__cta:hover { background-color: #fff; }
 
-/* Lançamento (ancorado na base à esquerda) */
 .release {
   position: absolute;
   left: calc(32 * var(--u));
@@ -228,7 +216,6 @@ body {
   white-space: nowrap;
 }
 
-
 /* SEÇÃO 2 — ELENCO */
 .cast {
   position: relative;
@@ -238,12 +225,11 @@ body {
   background-color: #000;
 }
 
-/* Coluna de texto (centralizada na vertical) */
 .cast__info {
   position: absolute;
   left: calc(73 * var(--u));
   top: 50%;
-  margin-top: calc(-309 * var(--u));  /* 540 - 231, com a coluna de 617u */
+  margin-top: calc(-309 * var(--u));
   width: calc(333 * var(--u));
   display: flex;
   flex-direction: column;
@@ -280,14 +266,12 @@ body {
   color: rgba(255, 255, 255, .75);
 }
 
-/*  Seletor de personagens  */
 .cast__picker {
   display: flex;
   align-items: center;
   gap: calc(20 * var(--u));
 }
 
-/* O SVG do indicador é 2u mais alto que a caixa: sobra 1u em cima e embaixo */
 .cast__indicator {
   position: relative;
   flex-shrink: 0;
@@ -321,13 +305,12 @@ body {
 
 .cast__item--active { color: rgba(255, 255, 255, .8); }
 
-/* Imagem  */
 .cast__media {
   position: absolute;
   left: calc(526 * var(--u));
   right: calc(77 * var(--u));
-  top: 15.648%;      /* 169 / 1080 */
-  bottom: 11.852%;   /* (1080 - 952) / 1080 */
+  top: 15.648%;
+  bottom: 11.852%;
   border-radius: calc(40 * var(--u));
   overflow: hidden;
 }
@@ -338,7 +321,6 @@ body {
   object-fit: cover;
 }
 
-/* Borda por dentro, como o stroke "inside" do Figma */
 .cast__media::after {
   content: "";
   position: absolute;
