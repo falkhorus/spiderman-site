@@ -58,7 +58,7 @@ const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".hero",
     start: "top top",
-    end: "+=4000", // Controla a duração geral do scroll (quanto maior, mais lento para rolar)
+    end: "+=8000", // Controla a duração geral do scroll (quanto maior, mais lento para rolar)
     scrub: 1,      // Suaviza o vínculo da animação com o scroll
     pin: true,     // Fixa a seção enquanto a timeline roda
   }

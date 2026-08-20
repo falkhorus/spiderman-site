@@ -112,7 +112,8 @@ body {
   width: 100%;
   font-size: calc(20 * var(--u));
   line-height: calc(30 * var(--u));
-  color: rgba(0, 0, 0, .9);
+  color: #ffffff;
+  mix-blend-mode: difference ;   /* muda a cor do texto dependendo do fundo */
 }
 
 .scroll-badge {
