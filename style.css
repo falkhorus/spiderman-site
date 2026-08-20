@@ -103,6 +103,8 @@ body {
   width: calc(449 * var(--u));
   height: calc(250 * var(--u)); /* Maior para caber textos mais longos */
   margin-top: calc(16.5 * var(--u));
+  mix-blend-mode: difference;
+  color: #ffffff;
 }
 
 .movie__desc {
@@ -329,4 +331,77 @@ body {
   border: calc(2 * var(--u)) solid rgba(255, 255, 255, .14);
   border-radius: inherit;
   pointer-events: none;
+}
+
+
+/*   TRAILER E PLAYER  */
+
+
+.trailer-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: #000000; /* Fundo transparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* O pulo do gato: recorta 50% de cada lado, deixando o elemento invisível no meio exato da tela */
+  clip-path: inset(50%); 
+}
+
+.trailer-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.trailer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65); /* Overlay leve escuro */
+  transition: opacity 0.5s ease;
+}
+
+/* Esconde o overlay preto quando a classe .is-playing é ativada via JS */
+.trailer-wrapper.is-playing .trailer-overlay {
+  opacity: 0;
+}
+
+/* Botão Play */
+.trailer-play-btn {
+  position: relative;
+  z-index: 3;
+  width: calc(100 * var(--u));
+  height: calc(100 * var(--u));
+  border: calc(2 * var(--u)) solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;             /* Oculto inicialmente */
+  pointer-events: none;   /* Desativado para cliques inicialmente */
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.trailer-play-btn svg {
+  width: 40%;
+  height: 40%;
+  margin-left: 8%; /* Ajuste para o triângulo de play parecer no centro */
+}
+
+.trailer-play-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ajuste na classe do título para garantir sobreposição no efeito */
+.movie {
+  
 }

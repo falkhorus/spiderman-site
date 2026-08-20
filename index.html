@@ -13,7 +13,6 @@
 </head>
 <body>
 
-  <!-- Smooth Wrapper para o ScrollSmoother -->
   <div id="smooth-wrapper">
     <div id="smooth-content">
 
@@ -29,15 +28,23 @@
             </clipPath>
           </defs>
         </svg>
-
+        <!-- CONTAINER DO TRAILER -->
+          <div class="trailer-wrapper">
+            <video class="trailer-video" src="assets/trailer.mp4" muted autoplay loop playsinline></video>
+            <div class="trailer-overlay"></div>
+            
+            <button class="trailer-play-btn" aria-label="Play Trailer">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
         <div class="stage">
-          <!-- Canvas para a sequência de imagens (frames) -->
           <canvas id="stage-canvas"></canvas>
+
+          
 
           <div class="movie">
             <img class="movie__title" src="assets/titulo-spider-man.svg" alt="Spider-Man: Um Novo Dia" width="445" height="153">
 
-            <!-- Container para os textos que vão intercalar -->
             <div class="movie__desc-container">
               <p class="movie__desc text-1">
                 É um NOVO DIA para Peter Parker. Agora, ele combate o crime em tempo integral como Homem-Aranha em um mundo que não se lembra dele.
@@ -104,15 +111,10 @@
     </div>
   </div>
 
-  <!-- Scripts gratuitos do GSAP e ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <!-- CDNs oficiais de teste (Trial) para plugins Premium (funcionam no seu PC) -->
   <script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
   <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
-  
-  <!-- Seu Script Principal -->
   <script src="script.js"></script>
 </body>
 </html>
