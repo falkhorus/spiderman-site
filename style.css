@@ -220,12 +220,14 @@ body {
 }
 
 /* SEÇÃO 2 — ELENCO */
+/* SEÇÃO 2 — ELENCO */
 .cast {
   position: relative;
   width: 100%;
   height: 100vh;
   height: 100dvh;
   background-color: #000;
+  overflow: hidden; /* Garante que o conteúdo não vaze ao pinnar */
 }
 
 .cast__info {
@@ -248,18 +250,34 @@ body {
   color: rgba(255, 255, 255, .9);
 }
 
-.cast__person {
-  display: flex;
-  flex-direction: column;
-  gap: calc(4 * var(--u));
+/* NOVO: Container para empilhar os nomes dos atores */
+.cast__person-container {
+  position: relative;
   width: 100%;
+  height: calc(97 * var(--u)); /* Altura suficiente para h2 + p */
+  font-family: "Good Times", "Poppins", sans-serif;
+}
+
+.cast__person {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cast__person--active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .cast__name {
   font-weight: 400;
-  font-size: calc(62 * var(--u));
+  font-size: calc(30 * var(--u));
   line-height: calc(93 * var(--u));
   color: rgba(255, 255, 255, .9);
+  
 }
 
 .cast__role {
@@ -271,30 +289,43 @@ body {
 
 .cast__picker {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Alinhado ao topo */
   gap: calc(20 * var(--u));
 }
 
+/* NOVO: Ajuste do indicador dinâmico */
 .cast__indicator {
   position: relative;
   flex-shrink: 0;
   width: calc(20 * var(--u));
-  height: calc(144 * var(--u));
+  /* Altura que cobre os 5 itens da lista */
+  height: calc(185 * var(--u)); 
+  display: flex;
+  justify-content: center;
 }
 
-.cast__indicator img {
+.cast__indicator-line {
   position: absolute;
-  left: 0;
-  top: calc(-1 * var(--u));
-  width: calc(20 * var(--u));
-  height: calc(146 * var(--u));
+  top: 0;
+  bottom: 0;
+  width: calc(2 * var(--u));
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.cast__indicator-spider {
+  position: absolute;
+  top: 0; /* Posição inicial, será movida via JS */
+  width: calc(16 * var(--u));
+  height: calc(20 * var(--u));
+  z-index: 2;
 }
 
 .cast__list {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: calc(20 * var(--u));
+  position: relative;
 }
 
 .cast__item {
@@ -303,7 +334,6 @@ body {
   text-transform: uppercase;
   white-space: nowrap;
   color: rgba(255, 255, 255, .5);
-  transition: color .2s ease;
 }
 
 .cast__item--active { color: rgba(255, 255, 255, .8); }
@@ -318,7 +348,15 @@ body {
   overflow: hidden;
 }
 
-.cast__media img {
+/* NOVO: Wrapper da foto com máscara clip-path */
+.cast__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cast__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -331,6 +369,7 @@ body {
   border: calc(2 * var(--u)) solid rgba(255, 255, 255, .14);
   border-radius: inherit;
   pointer-events: none;
+  z-index: 10; /* Garante que a borda fique sempre por cima das fotos */
 }
 
 
@@ -405,3 +444,4 @@ body {
 .movie {
   
 }
+

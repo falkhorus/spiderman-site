@@ -82,29 +82,71 @@
       </section>
       
       <!-- SEÇÃO 2 — ELENCO -->
+      
       <section class="cast" id="elenco">
         <div class="cast__info">
           <p class="cast__label">elenco</p>
-          <div class="cast__person">
-            <h2 class="cast__name">Zendaya</h2>
-            <p class="cast__role">Michelle &ldquo;MJ&rdquo; Jones</p>
+
+          <!-- Container para os textos que vão intercalar -->
+          <div class="cast__person-container">
+            <div class="cast__person cast__person--active">
+              <h2 class="cast__name">Tom Holland</h2>
+              <p class="cast__role">PETER PARKER / SPIDER-MAN</p>
+            </div>
+            <div class="cast__person">
+              <h2 class="cast__name">Zendaya</h2>
+              <p class="cast__role">MICHELLE "MJ" JONES</p>
+            </div>
+            <div class="cast__person">
+              <h2 class="cast__name">Jacob Batalon</h2>
+              <p class="cast__role">NED LEEDS</p>
+            </div>
+            <div class="cast__person">
+              <h2 class="cast__name">Michael Mando</h2>
+              <p class="cast__role">MAC GARGAN / SCORPION</p>
+            </div>
+            <div class="cast__person">
+              <h2 class="cast__name">Mark Ruffalo</h2>
+              <p class="cast__role">BRUCE BANNER /HULK</p>
+            </div>
           </div>
 
           <div class="cast__picker">
             <div class="cast__indicator" aria-hidden="true">
-              <img src="assets/indicador-elenco.svg" alt="" width="20" height="146">
+              <!-- Linha guia vertical -->
+              <div class="cast__indicator-line"></div>
+              <!-- Aranha que servirá como barra de progresso -->
+              <img class="cast__indicator-spider" src="assets/logotipo-aranha.svg" alt="" width="16" height="20">
             </div>
+
             <ul class="cast__list">
-              <li class="cast__item">Michelle &ldquo;MJ&rdquo; Jones</li>
-              <li class="cast__item cast__item--active" aria-current="true">Michelle &ldquo;MJ&rdquo; Jones</li>
-              <li class="cast__item">Michelle &ldquo;MJ&rdquo; Jones</li>
-              <li class="cast__item">Michelle &ldquo;MJ&rdquo; Jones</li>
+              <li class="cast__item cast__item--active">TOM HOLLAND</li>
+              <li class="cast__item">ZENDAYA</li>
+              <li class="cast__item">JACOB BATALON</li>
+              <li class="cast__item">MICHAEL MANDO</li>
+              <li class="cast__item">MARK RUFFALO</li>
             </ul>
           </div>
         </div>
 
         <figure class="cast__media">
-          <img src="assets/elenco-zendaya.png" alt="Zendaya como Michelle &ldquo;MJ&rdquo; Jones">
+          <!-- O Ator 1 já começa totalmente visível -->
+          <div class="cast__photo" style="z-index: 1; clip-path: inset(0 0 0% 0);">
+            <img src="assets/elenco/img1.webp" alt="Ator 1">
+          </div>
+          <!-- Os próximos começam "clipados" (ocultos) na base -->
+          <div class="cast__photo" style="z-index: 2; clip-path: inset(0 0 100% 0);">
+            <img src="assets/elenco/img2.webp" alt="Ator 2">
+          </div>
+          <div class="cast__photo" style="z-index: 3; clip-path: inset(0 0 100% 0);">
+            <img src="assets/elenco/img3.webp" alt="Ator 3">
+          </div>
+          <div class="cast__photo" style="z-index: 4; clip-path: inset(0 0 100% 0);">
+            <img src="assets/elenco/img4.webp" alt="Ator 4">
+          </div>
+          <div class="cast__photo" style="z-index: 5; clip-path: inset(0 0 100% 0);">
+            <img src="assets/elenco/img5.webp" alt="Ator 5">
+          </div>
         </figure>
       </section>
 

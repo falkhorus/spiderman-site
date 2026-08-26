@@ -178,3 +178,61 @@ trailerWrapper.addEventListener('click', () => {
     toggleVideoState();
   }
 });
+
+
+
+// ANIMAÇÃO DA SEÇÃO ELENCO (SCROLL PINNED)
+
+
+const castPhotos = document.querySelectorAll('.cast__photo');
+const castPersons = document.querySelectorAll('.cast__person');
+const castItems = document.querySelectorAll('.cast__item');
+const indicatorSpider = document.querySelector('.cast__indicator-spider');
+
+// Cria uma Timeline dedicada para o Elenco
+const castTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".cast",
+    start: "top top",
+    end: "+=4000", // Rola por 4000px para passar pelos 5 atores
+    scrub: 1,
+    pin: true, 
+  }
+});
+
+// A posição Y base de onde a aranha começa
+const baseOffset = castItems[0].offsetTop; 
+
+// Vamos iterar sobre cada foto a partir do índice 1 (pois o índice 0 já está visível)
+castPhotos.forEach((photo, i) => {
+  if (i === 0) return; 
+
+  // Cria uma sub-timeline para cada transição de ator para manter as animações simultâneas
+  const stepTl = gsap.timeline();
+
+  // 1. Revela a imagem descendo a máscara (clip-path de 100% bottom para 0%)
+  stepTl.to(photo, {
+    clipPath: "inset(0 0 0% 0)",
+    duration: 1,
+    ease: "power1.inOut"
+  }, 0);
+
+  // 2. Troca os textos na esquerda (Crossfade)
+  stepTl.to(castPersons[i - 1], { opacity: 0, visibility: "hidden", duration: 0.4 }, 0);
+  stepTl.to(castPersons[i], { opacity: 1, visibility: "visible", duration: 0.4 }, 0.6);
+
+  // 3. Atualiza as cores na lista (ProgressBar textual)
+  stepTl.to(castItems[i - 1], { color: "rgba(255, 255, 255, 0.5)", duration: 0.5 }, 0);
+  stepTl.to(castItems[i], { color: "rgba(255, 255, 255, 0.8)", duration: 0.5 }, 0.5);
+
+  // 4. Desce a aranha apontando exatamente para o item da lista
+  // Calculamos a distância dinâmica do item atual em relação ao primeiro
+  stepTl.to(indicatorSpider, {
+    y: castItems[i].offsetTop - baseOffset, 
+    duration: 1,
+    ease: "power1.inOut"
+  }, 0);
+
+  // Adiciona esse passo à Timeline principal do elenco
+  castTl.add(stepTl);
+});
