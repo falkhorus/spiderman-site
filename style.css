@@ -3,6 +3,12 @@
    Layout do Figma: 1920 x 1080 por seção.
 */
 
+.hero,
+.cast,
+.footer {
+  --u: calc(100cqw / 1920);
+}
+
 @font-face {
   font-family: "Good Times";
   src: url("assets/good-times.otf") format("opentype");
@@ -443,5 +449,69 @@ body {
 /* Ajuste na classe do título para garantir sobreposição no efeito */
 .movie {
   
+}
+
+/* =========================================
+   SEÇÃO 3 — FOOTER
+   ========================================= */
+.footer {
+  position: relative;
+  width: 100%;
+  background-color: #770000; /* Mudou de #000 para vermelho */
+  padding: calc(100 * var(--u)) calc(73 * var(--u)) calc(60 * var(--u));
+  border-top: calc(1 * var(--u)) solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  overflow: hidden; /* Garante que a textura não vaze do footer */
+}
+
+/* NOVO: Estilo da teia no fundo do footer (idêntico ao Hero) */
+.footer__webbing {
+  position: absolute;
+  inset: 0;
+  background: url("assets/bg.webp") center bottom / cover no-repeat;
+  opacity: .3;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer__container {
+  position: relative; /* Garante que o conteúdo fique por cima da teia */
+  z-index: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(60 * var(--u)); 
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap; /* Garante que os links quebrem a linha em telas menores */
+  justify-content: center;
+  gap: calc(80 * var(--u)); /* Espaço bem generoso entre cada link */
+}
+
+.footer__link {
+  font-size: calc(16 * var(--u));
+  line-height: calc(24 * var(--u));
+  color: rgba(255, 255, 255, .9);
+  text-transform: uppercase;
+  letter-spacing: calc(2 * var(--u)); /* Dá o toque de espaçamento de cinema */
+  transition: opacity .2s ease;
+}
+
+.footer__link:hover {
+  opacity: 0.7;
+}
+
+.footer__legal {
+  text-align: center;
+  font-size: calc(13 * var(--u));
+  line-height: calc(22 * var(--u));
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+  margin-top: calc(20 * var(--u));
 }
 
