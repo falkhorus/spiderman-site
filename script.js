@@ -1,5 +1,12 @@
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
+const smoother = ScrollSmoother.create({
+  wrapper: '#smooth-wrapper',
+  content: '#smooth-content',
+  smooth: 1.5,
+  effects: true
+});
+
 ScrollSmoother.create({
   wrapper: '#smooth-wrapper',
   content: '#smooth-content',
@@ -51,6 +58,7 @@ gsap.set(split3.chars, { opacity: 0 });
 
 const tl = gsap.timeline({
   scrollTrigger: {
+    id: "hero-st",
     trigger: ".hero",
     start: "top top",
     end: "+=8000", // Mais longo para caber a animação do vídeo
@@ -235,4 +243,32 @@ castPhotos.forEach((photo, i) => {
 
   // Adiciona esse passo à Timeline principal do elenco
   castTl.add(stepTl);
+});
+
+
+// NAVEGAÇÃO SUAVE DOS LINKS
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    
+    // Ignora links vazios que tenham apenas "#"
+    if (targetId === '#') return; 
+    
+    e.preventDefault(); // Impede o pulo brusco padrão do HTML
+    
+    if (targetId === '#trailer') {
+      // Busca a distância de rolagem exata da seção Hero
+      const heroScroll = ScrollTrigger.getById("hero-st");
+      
+      if (heroScroll) {
+        // Manda o ScrollSmoother rolar até 50 pixels antes do fim do Hero
+        // Esse é o exato momento onde a máscara do trailer está 100% aberta
+        smoother.scrollTo(heroScroll.end - 50, true);
+      }
+    } else if (targetId === '#elenco') {
+      // Rola suavemente direto para o topo da seção do elenco
+      smoother.scrollTo('#elenco', true, "top top");
+    }
+  });
 });
